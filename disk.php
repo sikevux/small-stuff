@@ -112,7 +112,7 @@ h3 {
 			<div class="used-space">&nbsp;sda1 on /boot</div>
 		</div>
 		<div class="partition" id="sda5">
-			<div class="used-space">&nbsp;sda1 on /</div>
+			<div class="used-space">&nbsp;sda5 on /</div>
 		</div>
 	</div>
 	<br />
