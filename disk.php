@@ -5,6 +5,26 @@
  * And Do What Ever The Fuck You Want With It
  */
 ?>
+<?php
+function percent($amount, $total) {
+$count = $amount / $total;
+$countt = $count * 100;
+$result = number_format($countt, 0);
+echo $result;
+}
+$disc_count = shell_exec("df -Pk|grep -v none|wc -l");
+$disc_name = shell_exec("df -Pk|grep -v none|awk -v col=1 'NR > 1 {sub( \"\", \"\", $col); print $col }'");
+for($i=1; $i<$disc_count; $i++) {
+$drive_array[] = shell_exec("df -Pk|grep -v none|awk col=1 'NR > 1 {sub( \"\", \"\", \$col); print \$col }'|sed -n '".$i."p'");
+$drive_max[] =  shell_exec("df -Pk|grep -v none|awk col=4 'NR > 1 {sub( \"\", \"\", \$col); print \$col }'|sed -n '".$i."p'");
+$drive_use_b[] =  shell_exec("df -Pk|grep -v none|awk col=3 'NR > 1 {sub( \"\", \"\", \$col); print \$col }'|sed -n '".$i."p'");
+$drive_use[] =  shell_exec("df -Pk|grep -v none|awk col=5 'NR > 1 {sub( \"\", \"\", \$col); print \$col }'|sed -n '".$i."p'");
+}
+$system_max = shell_exec("df -Pk --total|awk col=4 'NR > 1 {sub( \"\", \"\", \$col); print \$col }'| tail -n1");
+for($i=1; $i<$disc_count; $i++) {
+$drive_percent[] = percent($drive_max[$i], $system_max);
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -60,38 +80,18 @@ h3 {
 	background-color: #ff8080;
 	overflow: visible;
 }
-
-#sda1.partition {
-	width: 10%;
+<?php
+for($i=1; $i<$disc_count; $i++) {
+print("#".$drive_array[$i].".partition { width: ".$drive_percent[$i]."%;}");
+print("#".$drive_array[$i].".partition .used-space { width: ".$drive_use[$i].";}");
 }
+?>
 
-#sda5.partition {
-	width: 90%;
-}
-
-#sdb1.partition {
-	width: 100%;
-}
-
-#sda1.partition .used-space {
-	width: <? php system("diskusage /boot 5");
-	?>
-}
-
-#sda5.partition .used-space {
-	width: <? php system("diskusage / 4");
-	?>
-}
-
-#sdb1.partition .used-space {
-	width: <? php system("diskusage /pool 5");
-	?>
-}
 </style>
 </head>
 <body>
 	<h1>
-	<?php system(hostname); ?>
+	<?php system("hostname"); echo $drive_array[1];?>
 	</h1>
 	<?php
 	$updata = shell_exec('uptime');
@@ -104,7 +104,7 @@ h3 {
 	<h2>
 	<?php echo $kernel[0]; ?>
 		&ndash; up
-		<?php echo $uptime[0]; echo $boot[1]; ?>
+		<?php echo $uptime[0]; //echo $boot[1]; ?>
 	</h2>
 	<h2>disk sda</h2>
 	<div class="drive" id="sda">
