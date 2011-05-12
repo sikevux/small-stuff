@@ -1,3 +1,10 @@
+<?php
+/*
+ * Created by Sikevux
+ * Inspired by Zash
+ * And Do What Ever The Fuck You Want With It
+ */
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
