@@ -11,29 +11,31 @@ function percent($amount, $total) {
 	$count = $amount / $total;
 	$countt = $count * 100;
 	$result = number_format($countt, 0);
-	//echo $result;
+	return $result;
 }
 
-$disc_count = shell_exec("df -Pk|grep -v none|wc -l");
-$disc_name = shell_exec("df -Pk|grep -v none|awk -v col=1 'NR > 1 {sub( \"\", \"\", $col); print $col }'");
+$not_wanted_filesystems = "none|tmpfs|udev|AFS";
+
+$disc_count = shell_exec("df -Pk|grep -v -E \"".$not_wanted_filesystems."\"|wc -l");
+$disc_name = shell_exec("df -Pk|grep -v -E \"".$not_wanted_filesystems."\"|awk -v col=1 'NR > 1 {sub( \"\", \"\", \$col); print \$col }'");
 
 for($i=1; $i<$disc_count; $i++) {
-	$drive_array[] = shell_exec("df -Pk|grep -v none|awk col=1 'NR > 1 {sub( \"\", \"\", \$col); print \$col }'|sed -n '".$i."p'");
-	$drive_max[] =  shell_exec("df -Pk|grep -v none|awk col=4 'NR > 1 {sub( \"\", \"\", \$col); print \$col }'|sed -n '".$i."p'");
-	$drive_use_b[] =  shell_exec("df -Pk|grep -v none|awk col=3 'NR > 1 {sub( \"\", \"\", \$col); print \$col }'|sed -n '".$i."p'");
-	$drive_use[] =  shell_exec("df -Pk|grep -v none|awk col=5 'NR > 1 {sub( \"\", \"\", \$col); print \$col }'|sed -n '".$i."p'");
+	$drive_array[] = shell_exec("df -Pk|grep -v -E \"".$not_wanted_filesystems."\"|awk -v col=1 'NR > 1 {sub( \"\", \"\", \$col); print \$col }'|sed -n '".$i."p'");
+	$drive_max[] =  shell_exec("df -Pk|grep -v -E \"".$not_wanted_filesystems."\"|awk -v col=4 'NR > 1 {sub( \"\", \"\", \$col); print \$col }'|sed -n '".$i."p'");
+	$drive_use_b[] =  shell_exec("df -Pk|grep -v -E \"".$not_wanted_filesystems."\"|awk -v col=3 'NR > 1 {sub( \"\", \"\", \$col); print \$col }'|sed -n '".$i."p'");
+	$drive_use[] =  shell_exec("df -Pk|grep -v -E \"".$not_wanted_filesystems."\"|awk -v col=5 'NR > 1 {sub( \"\", \"\", \$col); print \$col }'|sed -n '".$i."p'");
 }
 
-$system_max = shell_exec("df -Pk --total|awk col=4 'NR > 1 {sub( \"\", \"\", \$col); print \$col }'| tail -n1");
+$system_max = shell_exec("df -Pk | awk -v col=4 'NR > 1 {sub( \"\", \"\", \$col); tot += \$col;} END { print tot }'");
 
-for($i=1; $i<$disc_count; $i++) {
-	$drive_percent[] = percent($drive_max[$i], $system_max);
+for($i=0; $i<$disc_count-1; $i++) {
+	$drive_percent[$i] = percent($drive_max[$i], $system_max);
 }
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en">
 	<head>
-		<title><?php system(hostname); ?> status</title>
+		<title><?php echo substr(shell_exec(hostname), 0, -1); ?> status</title>
 		<meta http-equiv="content-type" content="application/xhtml+xml; charset=UTF-8" />
 		<meta content="width=400" name="viewport" />
 		<style type="text/css">
@@ -86,9 +88,9 @@ for($i=1; $i<$disc_count; $i++) {
 			overflow: visible;
 		}
 		<?php
-		for($i=1; $i<$disc_count; $i++) {
-		print("#".$drive_array[$i].".partition { width: ".$drive_percent[$i]."%;}");
-		print("#".$drive_array[$i].".partition .used-space { width: ".$drive_use[$i].";}");
+		for($i=0; $i<$disc_count-1; $i++) {
+			print("#".substr($drive_array[$i], 0, -1).".partition { width: ".$drive_percent[$i]."%;}\n\t\t");
+			print("#".substr($drive_array[$i], 0, -1).".partition .used-space { width: ".substr($drive_use[$i], 0, -1).";}\n");
 		}
 		?>
 		</style>
