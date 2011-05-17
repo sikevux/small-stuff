@@ -10,7 +10,7 @@ function percent($amount, $total) {
 $count = $amount / $total;
 $countt = $count * 100;
 $result = number_format($countt, 0);
-echo $result;
+//echo $result;
 }
 $disc_count = shell_exec("df -Pk|grep -v none|wc -l");
 $disc_name = shell_exec("df -Pk|grep -v none|awk -v col=1 'NR > 1 {sub( \"\", \"\", $col); print $col }'");
@@ -95,8 +95,8 @@ print("#".$drive_array[$i].".partition .used-space { width: ".$drive_use[$i].";}
 	</h1>
 	<?php
 	$updata = shell_exec('uptime');
-	$uptime = explode(' up ', $updata);
-	$uptime = explode(',', $uptime[1]);
+	preg_match("/(up[ ]{1,}(([\d]{1,3}[ ]{1,}((day)|(days)),[ ]{1,})?([\d]{1,2}:)?[\d]{1,2}( min)?))(,[ \da-z]{0,},[ a-z:]{1,})([\d]{1,}.[\d]{2}, [\d]{1,}.[\d]{2}, [\d]{1,}.[\d]{2})/", $updata, $tmp);
+	$uptime = $tmp[2];
 	$load = explode('average:', $updata);
 	$kdata = shell_exec('uname -sr');
 	$kernel = explode('-', $kdata);
@@ -104,7 +104,7 @@ print("#".$drive_array[$i].".partition .used-space { width: ".$drive_use[$i].";}
 	<h2>
 	<?php echo $kernel[0]; ?>
 		&ndash; up
-		<?php echo $uptime[0]; //echo $boot[1]; ?>
+		<?php echo $uptime; //echo $boot[1]; ?>
 	</h2>
 	<h2>disk sda</h2>
 	<div class="drive" id="sda">
