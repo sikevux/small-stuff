@@ -3,6 +3,8 @@
  * Created by Sikevux
  * Inspired by Zash
  * And Do What Ever The Fuck You Want With It
+ *
+ * Contributions by: kd35a
  */
 ?>
 <?php
