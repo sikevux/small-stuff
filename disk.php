@@ -1,4 +1,5 @@
 <?php
+error_reporting(E_ALL);
 /*
  * Created by Sikevux
  * Inspired by Zash
@@ -12,19 +13,21 @@ $countt = $count * 100;
 $result = number_format($countt, 0);
 echo $result;
 }
-$disc_count = shell_exec("df -Pk|grep -v none|wc -l");
-$disc_name = shell_exec("df -Pk|grep -v none|awk -v col=1 'NR > 1 {sub( \"\", \"\", $col); print $col }'");
+$disc_count = trim(shell_exec("df -Pk|grep -v none|wc -l"));
+$disc_name = trim(shell_exec("diskusage 1"));
 for($i=1; $i<$disc_count; $i++) {
-$drive_array[] = shell_exec("df -Pk|grep -v none|awk col=1 'NR > 1 {sub( \"\", \"\", \$col); print \$col }'|sed -n '".$i."p'");
-$drive_max[] =  shell_exec("df -Pk|grep -v none|awk col=4 'NR > 1 {sub( \"\", \"\", \$col); print \$col }'|sed -n '".$i."p'");
-$drive_use_b[] =  shell_exec("df -Pk|grep -v none|awk col=3 'NR > 1 {sub( \"\", \"\", \$col); print \$col }'|sed -n '".$i."p'");
-$drive_use[] =  shell_exec("df -Pk|grep -v none|awk col=5 'NR > 1 {sub( \"\", \"\", \$col); print \$col }'|sed -n '".$i."p'");
+$drive_array[] = trim(shell_exec("diskusage 1|sed -n '".$i."p'"));
+$drive_max[] =  trim(shell_exec("diskusage 4|sed -n '".$i."p'"));
+$drive_use_b[] =  trim(shell_exec("diskusage 3|sed -n '".$i."p'"));
+$drive_use[] =  trim(shell_exec("diskusage 5|sed -n '".$i."p'"));
 }
-$system_max = shell_exec("df -Pk --total|awk col=4 'NR > 1 {sub( \"\", \"\", \$col); print \$col }'| tail -n1");
+$system_max = trim(shell_exec("diskusage 4| tail -n1"));
 for($i=1; $i<$disc_count; $i++) {
 $drive_percent[] = percent($drive_max[$i], $system_max);
 }
 ?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -81,9 +84,10 @@ h3 {
 	overflow: visible;
 }
 <?php
+$disc_count--;
 for($i=1; $i<$disc_count; $i++) {
-print("#".$drive_array[$i].".partition { width: ".$drive_percent[$i]."%;}");
-print("#".$drive_array[$i].".partition .used-space { width: ".$drive_use[$i].";}");
+print("#".$drive_array[$i].".partition { width: ".$drive_percent[$i]."%;}\n");
+print("#".$drive_array[$i].".partition .used-space { width: ".$drive_use[$i].";}\n");
 }
 ?>
 
@@ -91,14 +95,14 @@ print("#".$drive_array[$i].".partition .used-space { width: ".$drive_use[$i].";}
 </head>
 <body>
 	<h1>
-	<?php system("hostname"); echo $drive_array[1];?>
+	<?php system("hostname"); ?>
 	</h1>
 	<?php
-	$updata = shell_exec('uptime');
+	$updata = rtrim(shell_exec('uptime'));
 	$uptime = explode(' up ', $updata);
 	$uptime = explode(',', $uptime[1]);
 	$load = explode('average:', $updata);
-	$kdata = shell_exec('uname -sr');
+	$kdata = rtrim(shell_exec('uname -sr'));
 	$kernel = explode('-', $kdata);
 	?>
 	<h2>
