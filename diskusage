@@ -1,2 +1,2 @@
 #!/bin/bash
-df -k $1 | awk -v col=$2 'NR > 1 {sub( "", "", $col); print $col }'
+df -Pk|grep -v none|awk -v col=$1 'NR > 1 {sub( "", "", $col); print $col }'
