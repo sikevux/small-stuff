@@ -7,6 +7,15 @@
  * Contributions by: kd35a
  */
 
+
+/*
+ * TODO
+ * Rite so we totaly need a drive array, not just partitions
+ * real drives. Then prolly some nice way to kill the /dev/
+ * part on all the disks, without making the luks drives
+ * look like crack with a hat 
+ */
+
 function percent($amount, $total) {
 	$count = $amount / $total;
 	$countt = $count * 100;
@@ -89,8 +98,8 @@ for($i=0; $i<$disc_count-1; $i++) {
 		}
 		<?php
 		for($i=0; $i<$disc_count-1; $i++) {
-			print("#".substr($drive_array[$i], 0, -1).".partition { width: ".$drive_percent[$i]."%;}\n\t\t");
-			print("#".substr($drive_array[$i], 0, -1).".partition .used-space { width: ".substr($drive_use[$i], 0, -1).";}\n");
+			print("#".substr($drive_array[$i], 0, -1).".partition {\n\t\t\twidth: ".$drive_percent[$i]."%;\n\t\t}\n\t\t");
+			print("#".substr($drive_array[$i], 0, -1).".partition .used-space {\n\t\t\twidth: ".substr($drive_use[$i], 0, -1).";\n\t\t}\n\t\t");
 		}
 		?>
 		</style>
@@ -110,6 +119,7 @@ for($i=0; $i<$disc_count-1; $i++) {
 		<h2>
 			<?php echo $kernel[0]." &ndash; up ".$uptime; ?>
 		</h2>
+<!-- TODO: Automate this part -->
 		<h2>disk sda</h2>
 		<div class="drive" id="sda">
 			<div class="partition" id="sda1">
