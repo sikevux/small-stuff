@@ -14,7 +14,7 @@ function percent($amount, $total) {
 	return $result;
 }
 
-$not_wanted_filesystems = "none|tmpfs|udev|AFS";
+$not_wanted_filesystems = "none|tmpfs|udev|AFS|loop|sr";
 
 $disc_count = shell_exec("df -Pk|grep -v -E \"".$not_wanted_filesystems."\"|wc -l");
 $disc_name = shell_exec("df -Pk|grep -v -E \"".$not_wanted_filesystems."\"|awk -v col=1 'NR > 1 {sub( \"\", \"\", \$col); print \$col }'");
