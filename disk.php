@@ -97,7 +97,7 @@ for($i=0; $i<$disc_count-1; $i++) {
 	</head>
 	<body>
 		<h1>
-			<?php system("hostname"); echo $drive_array[1];?>
+			<?php system("hostname"); ?>
 		</h1>
 		<?php
 		$updata = shell_exec('uptime');
