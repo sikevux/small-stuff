@@ -7,4 +7,4 @@
 
 var regExp = /facebook/i;
 if (regExp.test(window.location.href))
-window.location.replace(window.location.href.replace(/(.*)facebook/, "http://prx.fxcxbxxk"));
+window.location.replace(window.location.href.replace(/(.*)facebook/, "http://www.fxcxbxxk"));
