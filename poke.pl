@@ -6,7 +6,7 @@ use Term::ReadKey;
 
 # Version: 1.0 Alpha
 # Date:    2010-12-06
-# Revised: 2010-12-07
+# Revised: 2011-06-14
 # Author:  Patrik Greco <sikevux @sikevux.se>
 #          https://sikevux.se
 # License: Kopimi
@@ -44,34 +44,34 @@ ReadMode 0;
 print "Password: ";
 
 # Don't print the password as we type
- ReadMode('noecho');
- $password = ReadLine(0);
- chomp( $password );
- ReadMode 0;
+ReadMode('noecho');
+$password = ReadLine(0);
+chomp( $password );
+ReadMode 0;
 
 # Working on it.
 
 #-- End login prompt --#
 
 #-- Mechanize start --#
- $mech = WWW::Mechanize->new();
+$mech = WWW::Mechanize->new();
 
 # We need to store some tmp cookies
- $mech->cookie_jar(HTTP::Cookies->new());
+$mech->cookie_jar(HTTP::Cookies->new());
 
 # Grab the login so we can get the login form
- $mech->get("https://m.facebook.com/login.php");
+$mech->get("https://m.facebook.com/login.php");
 
 
 # Send the login form to facebutt
 $mech->submit_form(
-    form_number => 1,
-    fields =>
-    {
+	form_number => 1,
+	fields =>
+	{
 		email => $login,
 		pass => $password
-    }
- );
+	}
+);
 #-- Auth Done :) --#
 #-- 2nd Auth --#
 print "Security code: ";
@@ -80,25 +80,25 @@ chomp($sec_code);
 ReadMode 0;
 $mech->get("https://m.facebook.com/checkpoint/?refsrc=https%3A%2F%2Fm.facebook.com%2Fhome.php&refid=8&_rdr");
 $mech->submit_form(
-    form_number => 1,
-    fields =>
-    {
+	form_number => 1,
+	fields =>
+	{
 		approvals_code => $sec_code
-    }
-	);
+	}
+);
 #-- 2nd Auth Done --#
 #-- Add fakkin puter --#
 print "Computer name: ";
 $comp_name = ReadLine(0);
 chomp($comp_name);
 ReadMode 0;
- $mech->get("https://m.facebook.com/checkpoint/?refid=0");
+$mech->get("https://m.facebook.com/checkpoint/?refid=0");
 $mech->submit_form(
-    form_number => 1,
-    fields =>
-    {
+	form_number => 1,
+	fields =>
+	{
 		machine_name => $comp_name
-    }
+	}
 );
 #-- Add puter Done --#
 print "\n";
@@ -111,26 +111,26 @@ print "######################\n";
 $mech->get("https://m.facebook.com/home.php");
 
 # As long as 1 is 1 everything will be ok
- while (1==1) {
+while (1==1) {
 
 # if the page includes "poke" poke ppl!
-	 if ($mech->content()=~/poke/) { 
-		 print "starting to poke";
-		 $pokeback = $mech->content();
-		 $pokeback =~ s/\n//g;
-		 $pokeback =~ s/^.*poke=//g;
-		 $pokeback =~ s/\">Poke.*$//g;
-		 $pokeback =~ s/&amp;/&/g;
-		 $mech->get("https://m.facebook.com/a/home.php?poke=$pokeback");
-		 $mech->get("https://m.facebook.com/home.php");
-		 print "one poke!";
-	 }
+if ($mech->content()=~/poke/) { 
+	print "starting to poke";
+	$pokeback = $mech->content();
+	$pokeback =~ s/\n//g;
+	$pokeback =~ s/^.*poke=//g;
+	$pokeback =~ s/\">Poke.*$//g;
+	$pokeback =~ s/&amp;/&/g;
+	$mech->get("https://m.facebook.com/a/home.php?poke=$pokeback");
+	$mech->get("https://m.facebook.com/home.php");
+	print "one poke!";
+}
 
 # if there's no one to poke back, just wait 1 minute.
-	 else {
-		 print "something";
-		 sleep(60);
-		 $mech->get("https://m.facebook.com/home.php");
-	 }
- }
+else {
+	print "something";
+	sleep(60);
+	$mech->get("https://m.facebook.com/home.php");
+}
+}
 #-- Poke done --#
