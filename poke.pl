@@ -19,10 +19,7 @@ use Term::ReadKey;
 #          You have been warned. Enjoy!
 
 #-- Initiate all Vars --#
-my $login;
-my $password;
-my $mech;
-my $pokeback;
+my ($login, $password, $sec_code, $comp_name, $mech, $pokeback);
 #-- End Vars --#
 #-- Start of the program --#
 print("                                                                         
@@ -53,11 +50,7 @@ print "Password: ";
  ReadMode 0;
 
 # Working on it.
- print "\n";
- print "######################\n";
-print "#  We are now Live!  #\n";
-print "#     Take cover!    #\n";
- print "######################\n";
+
 #-- End login prompt --#
 
 #-- Mechanize start --#
@@ -69,8 +62,6 @@ print "#     Take cover!    #\n";
 # Grab the login so we can get the login form
  $mech->get("https://m.facebook.com/login.php");
 
-# Stop Facebutt from sending you to HTTP after auth
- $mech->max_redirect(0);
 
 # Send the login form to facebutt
 $mech->submit_form(
@@ -82,16 +73,49 @@ $mech->submit_form(
     }
  );
 #-- Auth Done :) --#
-
+#-- 2nd Auth --#
+print "Security code: ";
+$sec_code = ReadLine(0);
+chomp($sec_code);
+ReadMode 0;
+$mech->get("https://m.facebook.com/checkpoint/?refsrc=https%3A%2F%2Fm.facebook.com%2Fhome.php&refid=8&_rdr");
+$mech->submit_form(
+    form_number => 1,
+    fields =>
+    {
+		approvals_code => $sec_code
+    }
+	);
+#-- 2nd Auth Done --#
+#-- Add fakkin puter --#
+print "Computer name: ";
+$comp_name = ReadLine(0);
+chomp($comp_name);
+ReadMode 0;
+ $mech->get("https://m.facebook.com/checkpoint/?refid=0");
+$mech->submit_form(
+    form_number => 1,
+    fields =>
+    {
+		machine_name => $comp_name
+    }
+);
+#-- Add puter Done --#
+print "\n";
+print "######################\n";
+print "#  We are now Live!  #\n";
+print "#     Take cover!    #\n";
+print "######################\n";
 #-- Poke :) --#
 # Get the page!
- $mech->get("https://m.facebook.com/home.php");
+$mech->get("https://m.facebook.com/home.php");
 
 # As long as 1 is 1 everything will be ok
  while (1==1) {
 
 # if the page includes "poke" poke ppl!
 	 if ($mech->content()=~/poke/) { 
+		 print "starting to poke";
 		 $pokeback = $mech->content();
 		 $pokeback =~ s/\n//g;
 		 $pokeback =~ s/^.*poke=//g;
@@ -99,10 +123,12 @@ $mech->submit_form(
 		 $pokeback =~ s/&amp;/&/g;
 		 $mech->get("https://m.facebook.com/a/home.php?poke=$pokeback");
 		 $mech->get("https://m.facebook.com/home.php");
+		 print "one poke!";
 	 }
 
 # if there's no one to poke back, just wait 1 minute.
 	 else {
+		 print "something";
 		 sleep(60);
 		 $mech->get("https://m.facebook.com/home.php");
 	 }
