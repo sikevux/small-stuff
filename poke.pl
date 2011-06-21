@@ -74,11 +74,13 @@ $mech->submit_form(
 );
 #-- Auth Done :) --#
 #-- 2nd Auth --#
+print $mech->content();
 print "Security code: ";
 $sec_code = ReadLine(0);
 chomp($sec_code);
 ReadMode 0;
-$mech->get("https://m.facebook.com/checkpoint/?refsrc=https%3A%2F%2Fm.facebook.com%2Fhome.php&refid=8&_rdr");
+
+ if($mech->content()=~/approvals_code/) {
 $mech->submit_form(
 	form_number => 1,
 	fields =>
@@ -86,13 +88,13 @@ $mech->submit_form(
 		approvals_code => $sec_code
 	}
 );
+ }
 #-- 2nd Auth Done --#
 #-- Add fakkin puter --#
 print "Computer name: ";
 $comp_name = ReadLine(0);
 chomp($comp_name);
 ReadMode 0;
-$mech->get("https://m.facebook.com/checkpoint/?refid=0");
 $mech->submit_form(
 	form_number => 1,
 	fields =>
@@ -100,6 +102,13 @@ $mech->submit_form(
 		machine_name => $comp_name
 	}
 );
+print $mech->content();
+ my $plompt = ReadLine(0);
+ chomp($plompt);
+ ReadMode 0;
+ if($plompt != 'y') {
+	 exit();
+ }
 #-- Add puter Done --#
 print "\n";
 print "######################\n";
@@ -109,7 +118,13 @@ print "######################\n";
 #-- Poke :) --#
 # Get the page!
 $mech->get("https://m.facebook.com/home.php");
-
+ print $mech->content();
+ my $ndplompt = ReadLine(0);
+ chomp($ndplompt);
+ ReadMode 0;
+ if($ndplompt != 'y') {
+	 exit();
+ }
 # As long as 1 is 1 everything will be ok
 while (1==1) {
 

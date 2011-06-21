@@ -1,0 +1,22 @@
+#!/bin/bash
+# This is intended as a MOTD script
+# Best location is /etc/update-motd.d/
+
+echo -n "Welcome! This is, "
+hostname
+echo "#######################################################################"
+uptime
+echo "#######################################################################"
+echo -n "Current number of SSH Sessions: "
+ps -t ? S | grep "priv" -c
+echo "Login sessions with an active shell:"
+echo "USER     TTY      FROM              LOGIN@   IDLE   JCPU   PCPU WHAT"
+w -h
+echo "#######################################################################"
+if [[ ! -z $(ps aux |grep -w Z|grep -v grep) ]]; then
+    echo "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
+    echo "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
+    echo "!!!!        System is infected by Zombies        !!!!"
+    echo "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
+    echo "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
+fi
