@@ -16,7 +16,7 @@ for DEP in $DEPENDENCIES; do
 done
 
 echo -e "Starting up.... \n\tThis may take a while"
-POKE=$(curl -s -b cookies.txt https://m.facebook.com/home.php |grep notifications |sed 's/^.*href="\/a\/notifications\.php?poke/https\:\/\/m\.facebook\.com\/a\/notifications\.php?poke/'| sed 's/".*$//')
+POKE=$(curl -s -b cookies.txt https://m.facebook.com/home.php | grep notifications | sed 's/^.*href="\/a\/notifications\.php?poke/https\:\/\/m\.facebook\.com\/a\/notifications\.php?poke/' | sed 's/".*$//')
 # Sure it's a long string to match but better safe than sorry
 
 if [[ $POKE == https* ]]; then
