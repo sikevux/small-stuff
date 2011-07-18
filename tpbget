@@ -1,0 +1,38 @@
+#!/usr/bin/env bash
+
+# TODO
+# -- Add transmission?
+
+# Sample usage:
+# ./tpbget https://thepiratebay.org/top/303 ~/l0ldir
+
+DEPENDENCIES="wget"
+for DEP in $DEPENDENCIES; do
+	if [ -z "`which $DEP`" ]; then
+		echo "ERROR: Missing dependency '$DEP'." >&2
+		exit
+	fi
+done
+
+pageUrl=$1
+dir=$2
+if [ -z "$pageUrl" ] || [ -z "$dir" ]; then
+	echo "Usage: $0 https://thepiratebay.org/top/303 ~/l0ldir" >&2
+	exit 1
+fi
+
+if [[ ! "$pageUrl" =~ http ]]; then
+	echo "Bad URL. Not HTTP?" >&2
+	exit 1
+fi
+
+if [ -d "$dir" ]; then
+	cd "$dir"
+else
+	echo "$dir doesn't seem to exist" >&2
+	exit 1
+fi
+
+echo "Starting... this might take a while"
+wget -A ".torrent" -r $pageUrl -H "torrents.thepiratebay.org" --no-check-certificate -l1 -nH -nd -e robots=off -q
+echo "Done"
