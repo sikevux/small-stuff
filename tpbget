@@ -21,7 +21,7 @@ if [ -z "$pageUrl" ] || [ -z "$dir" ]; then
 	exit 1
 fi
 
-if [[ ! "$pageUrl" =~ http ]]; then
+if [[ ! "$pageUrl" =~ "^http(s)?://" ]]; then
 	echo "Bad URL. Not HTTP?" >&2
 	exit 1
 fi
