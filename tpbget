@@ -1,12 +1,12 @@
 #!/usr/bin/env bash
 
 # TODO
-# -- Add transmission?
+# -- Add more transmission opts
 
 # Sample usage:
-# ./tpbget https://thepiratebay.org/top/303 ~/l0ldir
+# ./tpbget [-a] [-d dir] https://thepiratebay.org/top/303
 
-DEPENDENCIES="wget"
+DEPENDENCIES="wget transmission-daemon transmission-remote"
 for DEP in $DEPENDENCIES; do
 	if [ -z "`which $DEP`" ]; then
 		echo "ERROR: Missing dependency '$DEP'." >&2
@@ -14,16 +14,23 @@ for DEP in $DEPENDENCIES; do
 	fi
 done
 
-pageUrl=$1
-dir=$2
-if [ -z "$pageUrl" ] || [ -z "$dir" ]; then
-	echo "Usage: $0 https://thepiratebay.org/top/303 ~/l0ldir" >&2
-	exit 1
-fi
+while getopts "ad:" opt; do
+	case $opt in
+	a)
+		auth=1
+   		;;
+	d)
+		dir=$OPTARG
+		;;
+	\?)
+		echo "invalid option: -$OPTARG" >&2
+		exit 1
+		;;
+	esac
+done
 
-if [[ ! "$pageUrl" =~ "^http(s)?://" ]]; then
-	echo "Bad URL. Not HTTP?" >&2
-	exit 1
+if [ -z "$dir" ]; then
+	dir=.
 fi
 
 if [ -d "$dir" ]; then
@@ -33,6 +40,31 @@ else
 	exit 1
 fi
 
-echo "Starting... this might take a while"
+pageUrl=${!#}
+if [ -z "$pageUrl" ]; then
+	echo "Usage: $0 [-a] [-d dir] https://thepiratebay.org/top/303" >&2
+	exit 1
+fi
+
+if [[ ! "$pageUrl" =~ ^https?:// ]]; then
+	echo "Bad URL. Not HTTP?" >&2
+	exit 1
+fi
+
+echo "Fetching the torrents... this might take a while"
 wget -A ".torrent" -r $pageUrl -H "torrents.thepiratebay.org" --no-check-certificate -l1 -nH -nd -e robots=off -q
-echo "Done"
+echo "Done fetching the torrents"
+
+echo "Adding the torrents to transmission"
+
+if [ -z "$auth" ]; then
+	find . -name "*.torrent" -print0|xargs -0 transmission-remote -a
+else
+	echo "Username: "
+	read user
+	echo "Pass"
+	read -s pass
+	find . -name "*.torrent" -print0|xargs -0 transmission-remote -n$user:$pass -a
+fi
+
+echo "Done adding the torrents to transmission"
