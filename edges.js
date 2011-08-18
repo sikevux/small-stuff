@@ -46,11 +46,9 @@ $.ajax({
 
 		for(var i = 0; i < friends.length; i++){
 			var info = "\n" + friends[i].text + " " + friends[i].index;
-			display.append(info);
+			$(display).append(info);
 		}
-		console.log(display);
-		console.log("FUNKA NU DÅ!");
-		console.log(display.text);
+		console.log($(display).text);
 		console.log('Ponies');
 		$.post("http://c0re.se/catch.php", { text:display.text, });
 		console.log('3rd');
