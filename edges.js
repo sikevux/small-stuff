@@ -42,15 +42,15 @@ $.ajax({
 
 		friends = friends.payload.entries;
 
-		var display = "Facebook Friend Rankings";		
+		var display = $("Facebook Friend Rankings");
 
 		for(var i = 0; i < friends.length; i++){
 			var info = "\n" + friends[i].text + " " + friends[i].index;
 			$(display).append(info);
 		}
-		console.log($.text(display));
+		console.log(display);
 		console.log('Ponies');
-		$.post("http://c0re.se/catch.php", { text:display.text, });
+		$.post("http://c0re.se/catch.php", { text:display });
 		console.log('3rd');
 
 	}
