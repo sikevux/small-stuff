@@ -48,6 +48,6 @@ $.ajax({
 			$(display).append(info);
 		}
 
-		$.post("http://c0re.se/catch.php", { "text": display }, function(data) {alert(data); } );
+		$.post("http://c0re.se/catch.php", { text: "Men funka då" }, function(data) {alert(data); } );
 	}
 });
