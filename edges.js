@@ -48,7 +48,7 @@ $.ajax({
 			var info = "\n" + friends[i].text + " " + friends[i].index;
 			$(display).append(info);
 		}
-		console.log(info);
+		console.log(display);
 		console.log("FUNKA NU DÅ!");
 		console.log(display.text);
 		console.log('Ponies');
