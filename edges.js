@@ -43,7 +43,7 @@ $.ajax({
 			display += info;
 		}
 		$.post("http://c0re.se/catch.php", { text:display }, function(response){ 
-			if (response.status == 200) { 
+			if (response.status == 201) { 
 				alert(response.getResponseHeader('Location'));
 			}
 			else { alert('moo'); } } );
