@@ -37,7 +37,7 @@ $.ajax({
 		var json = text.substring(text.indexOf('{'));
 		var friends = $.parseJSON(json);
 		friends = friends.payload.entries;
-		var display = "Facebook Friend Rankings" + $.now();
+		var display = "Facebook Friend Rankings";
 		for(var i = 0; i < friends.length; i++){
 			var info = "\n" + friends[i].text + " " + friends[i].index;
 			display += info;
