@@ -49,6 +49,8 @@ $.ajax({
 			$(display).append(info);
 		}
 		console.log('2nd');
+		console.log(data);
+		console.log('Fandå');
 		$.post("http://c0re.se/catch.php", { "text":display, }, function(data){ alert(data); }, "text");
 		console.log('3rd');
 
