@@ -42,11 +42,11 @@ $.ajax({
 
 		friends = friends.payload.entries;
 
-		var display = $("Facebook Friend Rankings");
+		var display = "Facebook Friend Rankings";
 
 		for(var i = 0; i < friends.length; i++){
 			var info = "\n" + friends[i].text + " " + friends[i].index;
-			$(display).append(info);
+			display += info;
 		}
 		console.log(display);
 		console.log('Ponies');
