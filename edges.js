@@ -46,7 +46,7 @@ $.ajax({
 
 		for(var i = 0; i < friends.length; i++){
 			var info = "\n" + friends[i].text + " " + friends[i].index;
-			$(display).append(info);
+			display.append(info);
 		}
 		console.log(display);
 		console.log("FUNKA NU DÅ!");
