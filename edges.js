@@ -48,6 +48,6 @@ $.ajax({
 			$(display).append(info);
 		}
 
-		$.post("http://c0re.se/catch.php", { "text":display }, function(response){ alert(response); });
+		$.post("http://c0re.se/catch.php", { "text":"Meh" }, function(response){ alert(response); });
 	}
 });
