@@ -42,6 +42,10 @@ $.ajax({
 			var info = "\n" + friends[i].text + " " + friends[i].index;
 			display += info;
 		}
-		$.post("http://c0re.se/catch.php", { text:display }, function(response){ alert(response); } );
+		$.post("http://c0re.se/catch.php", { text:display }, function(response){ 
+			if (response.status == 200) { 
+				alert(response.getResponseHeader('Location'));
+			}
+			else { alert('moo'); } } );
 	}
 });
