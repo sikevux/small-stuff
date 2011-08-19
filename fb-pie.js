@@ -17,14 +17,14 @@ jQuery.ajax({
 
 		friends = friends.payload.entries;
 
-		var display = $("<div id='friend-edge-display'></div>");		
+		var display = $("<div id='default' class='graph'></div><div id='friend-edge-display'></div>");		
 		var data = [];
 		for(var i = 0; i < 25; i++){
 			data[i] = { label: friends[i].text, data: friends[i].index*-1};
 		}
 		$('body').append(display);
 
-		var title = $("<div id='friend-edge-title'>Facebook Friend Rankings</div><div id='default' class='graph'></div>");
+		var title = $("<div id='friend-edge-title'>Facebook Friend Rankings</div>");
 		display.prepend(title);
 		console.log(data);
 
