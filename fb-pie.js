@@ -56,6 +56,8 @@ $.ajax({
 		display.append('<div id="default" class="graph"></div>');
 
 
+		$('#graph').css('width: 900px;');
+		$('#graph').css('height: 700px;');
 
 		$('#friend-edge-title').css('font', '20px bold "helvetica neue"');
 		$('#friend-edge-title').css('margin-bottom', '10px');
