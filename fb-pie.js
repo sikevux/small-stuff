@@ -51,10 +51,10 @@ $.ajax({
 		}
 		$('body').append(display);
 
-		var title = $("<div id='friend-edge-title'>Facebook Friend Rankings</div>");
+		var title = $("<div id='friend-edge-title'>Facebook Friend Rankings</div><div id='default' class='graph'></div>");
 		display.prepend(title);
-		display.append('<div id="default" class="graph"></div>');
-
+		console.log(data);
+		$.plot($("#default"), data,{series: { pie: { show: true }}, legend: {show: false}});
 
 		$('#graph').css('width: 900px;');
 		$('#graph').css('height: 700px;');
@@ -79,6 +79,6 @@ $.ajax({
 		
 		$('.friend-edge-name').css('width', '250px');		
 		$('.friend-edge-name').css('display', 'inline-block');
-		$.plot($("#default"), data,{series: { pie: { show: true }}, legend: {show: false}});
+
 	}
 });
