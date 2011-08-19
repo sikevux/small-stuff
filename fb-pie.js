@@ -1,14 +1,3 @@
-function addJavascript(jsname,pos) {
-var th = document.getElementsByTagName(pos)[0];
-var s = document.createElement('script');
-s.setAttribute('type','text/javascript');
-s.setAttribute('src',jsname);
-th.appendChild(s);
-}
-
-addJavascript('https://raw.github.com/sikevux/small-stuff/master/jquery.flot.js','head');
-addJavascript('https://raw.github.com/sikevux/small-stuff/master/jquery.flot.pie.js','head');
-
 var fb_friends_url = "https://www.facebook.com/ajax/typeahead/search/first_degree.php?__a=1&filter[0]=user&lazy=0&viewer="+Env.user+"&token=&stale_ok=0";
 
 jQuery.ajax({
