@@ -36,7 +36,7 @@ addJavascript('https://raw.github.com/sikevux/small-stuff/master/jquery.flot.pie
 
 var fb_friends_url = "https://www.facebook.com/ajax/typeahead/search/first_degree.php?__a=1&filter[0]=user&lazy=0&viewer="+Env.user+"&token=&stale_ok=0";
 
-$.ajax({
+jQuery.ajax({
 
 	url: "https://www.facebook.com/ajax/typeahead/search/first_degree.php",
 	data: "__a=1&filter[0]=user&lazy=0&viewer="+Env.user+"&token=v7&stale_ok=0",
