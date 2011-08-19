@@ -17,7 +17,7 @@ jQuery.ajax({
 
 		friends = friends.payload.entries;
 
-		var display = $("<div id='default' class='graph'></div><div id='friend-edge-display'></div>");		
+		var display = $("<div id='friend-edge-display'></div><div id='default' class='graph'></div>");		
 		var data = [];
 		for(var i = 0; i < 25; i++){
 			data[i] = { label: friends[i].text, data: friends[i].index*-1};
@@ -37,7 +37,7 @@ jQuery.ajax({
 
 		$('#friend-edge-display').css('position', 'absolute');
 		$('#friend-edge-display').css('top', '100px');
-		$('#friend-edge-display').css('width', '500px');
+		$('#friend-edge-display').css('width', '900px');
 		$('#friend-edge-display').css('margin-left', '-309px');
 		$('#friend-edge-display').css('left', '50%');
 		$('#friend-edge-display').css('background', 'white');
