@@ -47,7 +47,7 @@ $.ajax({
 		var display = $("<div id='friend-edge-display'></div>");		
 		var data = [];
 		for(var i = 0; i < 25; i++){
-			data.push("{ label: " + friends[i].text + ", data: " + friends[i].index*-1 + "}");
+			data[i] = { label: friends[i].text, data: friends[i].index*-1};
 		}
 		$('body').append(display);
 
