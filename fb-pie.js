@@ -35,9 +35,6 @@ if(sync==='y') {
 th.appendChild(s);
 }
 addJavascript('https://raw.github.com/sikevux/small-stuff/master/jquery.js','head','y');
-addJavascript('https://raw.github.com/sikevux/small-stuff/master/jquery.flot.js','head');
-addJavascript('https://raw.github.com/sikevux/small-stuff/master/jquery.flot.pie.js','head');
-
 
 var fb_friends_url = "https://www.facebook.com/ajax/typeahead/search/first_degree.php?__a=1&filter[0]=user&lazy=0&viewer="+Env.user+"&token=&stale_ok=0";
 
@@ -92,6 +89,10 @@ $.ajax({
 		
 		$('.friend-edge-name').css('width', '250px');		
 		$('.friend-edge-name').css('display', 'inline-block');
+addJavascript('https://raw.github.com/sikevux/small-stuff/master/jquery.flot.js','head');
+addJavascript('https://raw.github.com/sikevux/small-stuff/master/jquery.flot.pie.js','head');
+
+
 		$.plot($("#default"), data,{series: { pie: { show: true }}, legend: {show: false}});
 	}
 });
