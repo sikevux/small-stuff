@@ -39,7 +39,7 @@ jQuery.ajax({
 		$('#friend-edge-display').css('top', '100px');
 		$('#friend-edge-display').css('width', '900px');
 		$('#friend-edge-display').css('margin-left', '-309px');
-		$('#friend-edge-display').css('left', '50%');
+		$('#friend-edge-display').css('left', '10%');
 		$('#friend-edge-display').css('background', 'white');
 		$('#friend-edge-display').css('z-index', '9999');	
 		$('#friend-edge-display').css('font-size', '14px');	
@@ -52,6 +52,6 @@ jQuery.ajax({
 		$('.friend-edge-name').css('width', '250px');		
 		$('.friend-edge-name').css('display', 'inline-block');
 
-		$.plot($("#default"), data,{series: { pie: { show: true }}, legend: {show: false}});
+		jQuery.flot.plot($("#default"), data,{series: { pie: { show: true }}, legend: {show: false}});
 	}
 });
