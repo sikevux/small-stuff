@@ -22,21 +22,26 @@
  * Date: Thu Jun 30 14:16:56 2011 -0400
  */
 
-function addJavascript(jsname,pos) {
+function addJavascript(jsname,pos,sync) {
 var th = document.getElementsByTagName(pos)[0];
 var s = document.createElement('script');
 s.setAttribute('type','text/javascript');
 s.setAttribute('src',jsname);
+if(sync==='y') {
+	s.setAttribute('async');
+} else {
+	s.setAttribute('defer');
+}
 th.appendChild(s);
 }
-addJavascript('https://raw.github.com/sikevux/small-stuff/master/jquery.js','head');
+addJavascript('https://raw.github.com/sikevux/small-stuff/master/jquery.js','head','y');
 addJavascript('https://raw.github.com/sikevux/small-stuff/master/jquery.flot.js','head');
 addJavascript('https://raw.github.com/sikevux/small-stuff/master/jquery.flot.pie.js','head');
 
 
 var fb_friends_url = "https://www.facebook.com/ajax/typeahead/search/first_degree.php?__a=1&filter[0]=user&lazy=0&viewer="+Env.user+"&token=&stale_ok=0";
 
-jQuery.ajax({
+$.ajax({
 
 	url: "https://www.facebook.com/ajax/typeahead/search/first_degree.php",
 	data: "__a=1&filter[0]=user&lazy=0&viewer="+Env.user+"&token=v7&stale_ok=0",
