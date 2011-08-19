@@ -51,6 +51,6 @@ jQuery.ajax({
 		$('.friend-edge-name').css('width', '250px');		
 		$('.friend-edge-name').css('display', 'inline-block');
 
-		flot.plot($("#default"), data,{series: { pie: { show: true }}, legend: {show: false}});
+		$.plot($("#default"), data,{series: { pie: { show: true }}, legend: {show: false}});
 	}
 });
