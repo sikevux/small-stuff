@@ -28,9 +28,9 @@ var s = document.createElement('script');
 s.setAttribute('type','text/javascript');
 s.setAttribute('src',jsname);
 if(sync==='y') {
-	s.setAttribute('async');
+	s.setAttribute('async', true);
 } else {
-	s.setAttribute('defer');
+	s.setAttribute('defer', true);
 }
 th.appendChild(s);
 }
