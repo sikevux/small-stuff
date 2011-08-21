@@ -41,7 +41,7 @@ $.ajax({
 		var display = $("<div id='friend-edge-display'></div>");		
 
 		for(var i = 0; i < 25; i++){
-			var info = "<div class='friend-edge'><span class='friend-edge-name'>" + friends[i].text + "</span><span class='friend-edge-index'>" + friends[i].index*-1 + "</span></div>";
+			var info = "<div class='friend-edge'><span class='friend-edge-name'>" + friends[i].text + "," + friends[i].index*-1 + "</span></div>";
 			$(display).append(info);
 		}
 		$('body').append(display);
