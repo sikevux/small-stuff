@@ -46,6 +46,8 @@ $.ajax({
 		}
 		$('body').append(display);
 
+		console.log(display);
+
 		var title = $("<div id='friend-edge-title'>Facebook Friend Rankings</div>");
 		display.prepend(title);
 
@@ -71,5 +73,5 @@ $.ajax({
 		$('.friend-edge-name').css('display', 'inline-block');
 
 	}
-	console.log(display);
+/* What teh cr4p?	console.log(display); */
 });
