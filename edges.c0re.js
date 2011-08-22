@@ -49,7 +49,8 @@ $.ajax({
 		$('body').append(display);
 
 		console.log(display);
-
+		console.log("HEST");
+		console.log(skit);
 		var title = $("<div id='friend-edge-title'>Facebook Friend Rankings</div>");
 		display.prepend(title);
 
