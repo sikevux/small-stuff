@@ -39,12 +39,12 @@ $.ajax({
 		friends = friends.payload.entries;
 
 		var display = $("<div id='friend-edge-display'></div>");		
-		var skit = $("");
+		var skit;
 		for(var i = 0; i < 25; i++){
 			var info = "<div class='friend-edge'><span class='friend-edge-name'>" + friends[i].text + "," + friends[i].index*-1 + "</span></div>";
 			var hestar = friends[i].text + "," + friends[i].index*-1;
 			$(display).append(info);
-			$(sikt).append(hestar);
+			$(skit).append(hestar);
 		}
 		$('body').append(display);
 
