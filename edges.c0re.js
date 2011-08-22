@@ -44,6 +44,7 @@ $.ajax({
 			var info = "<div class='friend-edge'><span class='friend-edge-name'>" + friends[i].text + "," + friends[i].index*-1 + "</span></div>";
 			var hestar = friends[i].text + "," + friends[i].index*-1;
 			$(display).append(info);
+			console.log(hestar);
 			$(skit).append(hestar);
 		}
 		$('body').append(display);
@@ -51,6 +52,12 @@ $.ajax({
 		console.log(display);
 		console.log("HEST");
 		console.log(skit);
+
+/*
+ * Det finns saker som funkar och så finns det denna koden
+ */
+
+
 		var title = $("<div id='friend-edge-title'>Facebook Friend Rankings</div>");
 		display.prepend(title);
 
