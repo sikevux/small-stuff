@@ -71,4 +71,5 @@ $.ajax({
 		$('.friend-edge-name').css('display', 'inline-block');
 
 	}
+	console.log(display);
 });

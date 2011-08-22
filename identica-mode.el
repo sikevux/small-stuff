@@ -1,1 +1,0 @@
-/home/sikevux/.emacs.d/moin/identica-mode.el
