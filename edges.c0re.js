@@ -48,7 +48,7 @@ $.ajax({
 		}
 		$('body').append(display);
 
-		console.log(skit);
+		console.log(display);
 
 		var title = $("<div id='friend-edge-title'>Facebook Friend Rankings</div>");
 		display.prepend(title);
